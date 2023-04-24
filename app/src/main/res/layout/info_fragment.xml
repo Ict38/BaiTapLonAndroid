@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/item_info_background">
+
+    <RelativeLayout
+        android:id="@+id/ItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/item_rectagle"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="15dp"
+        >
+        <TextView
+            android:id="@+id/ItemBookName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:text="Dune"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/ItemBookAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ItemBookName"
+            android:layout_marginLeft="30dp"
+            android:textSize="20dp"
+            android:text="Frank Herbert"/>
+        <TextView
+            android:id="@+id/ItemBookPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="₫200.000"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/price"
+            android:textSize="25dp"
+            android:textStyle="italic"
+            android:layout_below="@id/ItemBookAuthor"
+            />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:id="@+id/ItemRatingBar"
+            android:layout_below="@id/ItemBookPrice"
+            android:scaleX="0.75"
+            android:isIndicator="true"
+            android:progressTint="@color/star"
+            android:stepSize="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="-20dp"
+            android:rating="4"
+            />
+        <com.google.android.material.imageview.ShapeableImageView
+            app:strokeColor="@null"
+            android:layout_width="150dp"
+            android:id="@+id/ItemImage"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/specific_rounded_corner"
+            app:srcCompat="@drawable/dune" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text1"
+        android:layout_below="@id/ItemTitle"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Thông tin cuốn sách"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/infolayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text1"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/item_rectagle2">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/authorAndName"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tên sách"
+                    android:textSize="13dp"
+                    android:gravity="center"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_rectagle2"
+                    android:layout_margin="5dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bookName"
+                        android:text="Dune"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tác giả"
+                    android:textSize="13dp"
+                    android:gravity="center"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_rectagle2"
+                    android:layout_margin="5dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bookAuthor"
+                        android:text="Frank Herbert"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/desText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/authorAndName"
+            android:text="Mô tả"
+            android:textSize="13dp"
+            android:gravity="center"
+            />
+        <RelativeLayout
+            android:id="@+id/des"
+            android:layout_below="@id/desText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/item_rectagle2">
+
+            <TextView
+                android:id="@+id/bookDes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginBottom="3dp"
+                android:text="@string/bookDes"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text2"
+        android:layout_below="@id/infolayout"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Thể loại"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/catelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text2"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/item_rectagle2">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:id="@+id/cateRecyclerView"
+                />
+    </RelativeLayout>
+
+
+</RelativeLayout>

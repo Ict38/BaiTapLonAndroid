@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteblue">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/item_rectagle"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="15dp"
+        >
+        <TextView
+            android:id="@+id/ItemBookName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:text="SHOPP"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/ItemBookAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ItemBookName"
+            android:layout_marginLeft="30dp"
+            android:textSize="20dp"
+            android:text="Frank Herbert"/>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:id="@+id/ItemRatingBar"
+            android:layout_below="@id/ItemBookAuthor"
+            android:scaleX="0.8"
+            android:isIndicator="true"
+            android:progressTint="@color/star"
+            android:stepSize="1"
+            android:layout_marginTop="10dp"
+            android:rating="4"
+            />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="150dp"
+            android:id="@+id/ItemImage"
+            app:strokeColor="@null"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/specific_rounded_corner"
+            app:srcCompat="@drawable/dune" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
