@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/bottomnav"
-        android:background="@color/whiteblue"
+        android:background="@color/item_info_background"
         app:itemIconTint="@color/bottom_nav_selected"
         app:itemTextColor="@color/bottom_nav_selected"
         app:menu="@menu/bottom_nav_menu_item"

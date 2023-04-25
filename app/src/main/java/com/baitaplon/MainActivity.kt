@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
                 when (position) {
                     0 -> bottomNav.menu.findItem(R.id.info).isChecked = true
                     1 -> bottomNav.menu.findItem(R.id.shop).isChecked = true
-                    2 -> bottomNav.menu.findItem(R.id.comment).isChecked = true
                 }
             }
 
@@ -51,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.info -> viewPager.currentItem = 0
                 R.id.shop -> viewPager.currentItem = 1
-                R.id.comment -> viewPager.currentItem = 2
             }
             false
         })

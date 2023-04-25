@@ -35,9 +35,11 @@ class InfoFragment : Fragment() {
         var cateList = mutableListOf<Category>()
         val newCate1 = Category(1, "Viễn Tưởng")
         val newCate2 = Category(2, "Kỳ Ảo")
+        val newCate3 = Category(3, "Grimm Dark")
 
         cateList += newCate1
         cateList += newCate2
+        cateList += newCate3
 
         adapter.setCateList(cateList)
         var manager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)

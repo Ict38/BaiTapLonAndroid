@@ -8,8 +8,4 @@
         android:icon="@drawable/baseline_shopping_cart_24"
         android:title="Shop"
         />
-    <item android:id="@+id/comment"
-        android:icon="@drawable/baseline_comment_24"
-        android:title="Comment"
-        />
 </menu>
