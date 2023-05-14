@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Sign out"
+        android:icon="@drawable/ic_logout"/>
+    <item
+        android:id="@+id/nav_search"
+        android:title="Search by name"
+        android:icon="@drawable/baseline_search"/>
+    <item android:title="Contact">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:title="About"
+                android:icon="@drawable/ic_about"/>
+            <item
+                android:id="@+id/nav_feedback"
+                android:title="Feedback"
+                android:icon="@drawable/ic_feedback"/>
+        </menu>
+
+    </item>
+</menu>
