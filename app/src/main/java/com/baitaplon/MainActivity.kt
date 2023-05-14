@@ -22,14 +22,14 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClickListener, OnNavigationItemSelectedListener {
 
-    lateinit var image : ImageView
-    lateinit var drawer : DrawerLayout
-    lateinit var toggle: ActionBarDrawerToggle
-    lateinit var navView : NavigationView
-    lateinit var recyclerview : RecyclerView
-    lateinit var adapter : BookItemRecyclerViewAdapter
+    private lateinit var image : ImageView
+    private lateinit var drawer : DrawerLayout
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var navView : NavigationView
+    private lateinit var recyclerview : RecyclerView
+    private lateinit var adapter : BookItemRecyclerViewAdapter
 
-    val auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,12 +54,12 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
 
         recyclerview = findViewById(R.id.main_layout_recyclerview)
 
-        var bookList = mutableListOf<Book>()
-        var newBook1 = Book(0,"Dune","Frank Herbert",12000.0 , true)
-        var newBook2 = Book(1,"HARRY PORTER","Frank Herbert",12000.0 , true)
-        var newBook3 = Book(2,"MANCHESTER UNITED","Frank Herbert",12000.0 , true)
-        var newBook4 = Book(2,"MANCHESTER UNITED","Frank Herbert",12000.0 , true)
-        var newBook5 = Book(2,"MANCHESTER UNITED","Frank Herbert",12000.0 , true)
+        val bookList = mutableListOf<Book>()
+        val newBook1 = Book(0,"Dune","Frank Herbert",12000.0 , null)
+        val newBook2 = Book(1,"HARRY PORTER","Frank Herbert",12000.0 )
+        val newBook3 = Book(2,"MANCHESTER UNITED","Frank Herbert",12000.0  )
+        val newBook4 = Book(2,"MANCHESTER UNITED","Frank Herbert",12000.0  )
+        val newBook5 = Book(2,"MANCHESTER UNITED","Frank Herbert",12000.0 )
         bookList += newBook1
         bookList += newBook2
         bookList += newBook3
@@ -67,8 +67,7 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
         bookList += newBook5
         adapter = BookItemRecyclerViewAdapter(bookList,this)
         adapter.setBookList(bookList)
-        Toast.makeText(this, "${bookList.size}", Toast.LENGTH_SHORT)
-        var manager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+        val manager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
         val itemDecoration = SpaceItemDecoration(25)
         recyclerview.addItemDecoration(itemDecoration)
         recyclerview.layoutManager = manager
@@ -90,8 +89,8 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
         }
     }
 
-    override fun OnItemClick(position: Int) {
-        var intent = Intent(this , ItemActivity::class.java)
+    override fun onItemClick(position: Int) {
+        val intent = Intent(this , ItemActivity::class.java)
         Log.d("Something","HELLO THERE")
         intent.putExtra("book", adapter.getBookByPosition(position))
         startActivity(intent)

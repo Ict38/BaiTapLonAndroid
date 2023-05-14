@@ -50,11 +50,11 @@ class BookItemRecyclerViewAdapter(
             val position = adapterPosition
             Log.d("position", "$position")
             if(position != RecyclerView.NO_POSITION) {
-                listener.OnItemClick(position)
+                listener.onItemClick(position)
             }
         }
     }
     interface OnItemClickListener{
-        fun OnItemClick(position: Int)
+        fun onItemClick(position: Int)
     }
 }

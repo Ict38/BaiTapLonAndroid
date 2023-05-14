@@ -18,5 +18,6 @@
     <color name="item_title_header">#e1f0d3</color>
     <color name="text">#7f8e71</color>
     <color name="blue">#0099ff</color>
+    <color name="app_background">#FF018786</color>
 
 </resources>

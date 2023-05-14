@@ -7,8 +7,8 @@ import com.baitaplon.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class SignupActivity : AppCompatActivity() {
-    lateinit var signupBinding: ActivitySignupBinding
-    val auth = FirebaseAuth.getInstance()
+    private lateinit var signupBinding: ActivitySignupBinding
+    private val auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signupBinding = ActivitySignupBinding.inflate(layoutInflater)
@@ -26,12 +26,12 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    fun signupWithFirebase(username : String, password : String){
+    private fun signupWithFirebase(username : String, password : String){
         auth.createUserWithEmailAndPassword(username, password).addOnCompleteListener{task ->
 
             if(task.isSuccessful){
 
-                Toast.makeText(applicationContext, "Đăng ký thành công", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.signup_success_notify, Toast.LENGTH_SHORT).show()
                 finish()
 
             }else{

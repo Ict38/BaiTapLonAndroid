@@ -6,5 +6,6 @@
     <string name="bookDes"> Dune là một tiểu thuyết khoa học viễn tưởng của Frank Herbert,kể về hành trình của gia đình Atreides trên hành tinh Arrakis, nơi có nguồn tài nguyên quý giá là một loại chất tạo ra năng lượng gọi là Spice, và những cuộc chiến tranh để kiểm soát nó giữa các chủng tộc và các gia tộc quyền lực."</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close navigation Drawer</string>
+    <string name="signup_success_notify">Đăng ký thành công</string>
 
 </resources>

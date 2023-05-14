@@ -10,8 +10,8 @@ import com.baitaplon.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
-    lateinit var loginBinding : ActivityLoginBinding
-    val auth = FirebaseAuth.getInstance()
+    private lateinit var loginBinding : ActivityLoginBinding
+    private val auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
@@ -20,27 +20,28 @@ class LoginActivity : AppCompatActivity() {
         loginBinding.loginButton.setOnClickListener{
             val username = loginBinding.username.text.toString()
             val password = loginBinding.password.text.toString()
-            signinWithFirebase(username, password)
+            signingWithFirebase(username, password)
         }
 
         loginBinding.registerButton.setOnClickListener{
             val intent = Intent(this@LoginActivity , SignupActivity::class.java)
             startActivity(intent)
         }
+
+        loginBinding.forgotpassword.setOnClickListener{
+            val forgotPassword = Intent(this@LoginActivity, ResetPasswordActivity::class.java)
+            startActivity(forgotPassword)
+        }
     }
 
-    fun signinWithFirebase(email : String, password : String){
+    private fun signingWithFirebase(email : String, password : String){
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
-                    Toast.makeText(applicationContext, "Welcome back " + user, Toast.LENGTH_SHORT).show()
                     val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(mainIntent)
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
@@ -57,7 +58,6 @@ class LoginActivity : AppCompatActivity() {
 
         val user = auth.currentUser
         if(user != null){
-            Toast.makeText(applicationContext, "Welcome back " + user, Toast.LENGTH_SHORT).show()
             val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(mainIntent)
         }

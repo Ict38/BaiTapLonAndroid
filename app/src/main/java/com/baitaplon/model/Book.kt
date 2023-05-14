@@ -7,5 +7,5 @@ class Book(
     internal var name: String? = null,
     private var author: String? = null,
     private var price: Double? = null,
-    private var favorited: Boolean? = null
+    private var categories: MutableList<Category>? = null
 ) : Serializable {}
