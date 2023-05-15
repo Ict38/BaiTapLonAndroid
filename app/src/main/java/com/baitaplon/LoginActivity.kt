@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.values
 import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
@@ -45,9 +46,30 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
-                    val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(mainIntent)
+                    val user = auth.currentUser
+                    var role : String ? = null
+                    var roleUser : Boolean = true
+                    users?.child(user?.uid.toString())?.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for(ds in snapshot.children){
+                                Log.e("DSS", ds.value.toString())
+                                role = ds.value.toString()
+                                if(role == "admin"){
+                                    val adminIntent = Intent(this@LoginActivity, AdminMainActivity::class.java)
+                                    startActivity(adminIntent)
+                                    finish()
+                                }
+                                else{
+                                    val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                                    startActivity(mainIntent)
+                                    finish()
+                                }
+                            }
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
@@ -62,10 +84,24 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        users?.addValueEventListener(object : ValueEventListener{
+        val user = auth.currentUser
+        var role : String ? = null
+        var roleUser : Boolean = true
+        users?.child(user?.uid.toString())?.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
                     Log.e("DSS", ds.value.toString())
+                    role = ds.value.toString()
+                    if(role == "admin"){
+                        val adminIntent = Intent(this@LoginActivity, AdminMainActivity::class.java)
+                        startActivity(adminIntent)
+                        finish()
+                    }
+                    else{
+                        val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(mainIntent)
+                        finish()
+                    }
                 }
             }
 
@@ -74,10 +110,5 @@ class LoginActivity : AppCompatActivity() {
             }
 
         })
-        val user = auth.currentUser
-        if(user != null){
-            val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(mainIntent)
-        }
     }
 }
