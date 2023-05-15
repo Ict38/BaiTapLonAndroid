@@ -17,6 +17,6 @@ class ViewPagerAdapter(fm: FragmentManager, behavior: Int) :
     }
 
     override fun getCount(): Int {
-        return 3
+        return 2
     }
 }

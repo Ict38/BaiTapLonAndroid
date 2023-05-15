@@ -2,13 +2,18 @@ package com.baitaplon
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.baitaplon.databinding.ActivitySignupBinding
+import com.baitaplon.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var signupBinding: ActivitySignupBinding
     private val auth = FirebaseAuth.getInstance()
+    private val users = FirebaseDatabase.getInstance().reference.child("users")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signupBinding = ActivitySignupBinding.inflate(layoutInflater)
@@ -30,7 +35,12 @@ class SignupActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(username, password).addOnCompleteListener{task ->
 
             if(task.isSuccessful){
-
+                val user: FirebaseUser? = auth.currentUser
+                val newUser = User()
+                newUser.setUID(user?.uid.toString())
+                newUser.setRole("user")
+                users.child(user?.uid.toString()).setValue(newUser)
+                Log.e("USER : " , newUser.toString())
                 Toast.makeText(applicationContext, R.string.signup_success_notify, Toast.LENGTH_SHORT).show()
                 finish()
 
