@@ -14,18 +14,20 @@ class ItemActivity : AppCompatActivity() {
     lateinit var bottomNav : BottomNavigationView
     lateinit var viewPager : ViewPager
     lateinit var viewPagerAdapter : ViewPagerAdapter
+    lateinit var book : Book
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item)
 
+        book = (intent.getSerializableExtra("book") as? Book)!!
+
         mappingVariable()
         setupViewPager()
 
-        val book = intent.getSerializableExtra("book") as? Book
-        if (book != null) {
-            Log.d("Recieved","$book")
-        }
+
+
+
     }
 
     private fun setupViewPager() {
@@ -33,6 +35,10 @@ class ItemActivity : AppCompatActivity() {
             supportFragmentManager,
             FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
+        if (book != null) {
+            Log.e("Recieved","$book")
+            viewPagerAdapter.setBook(book)
+        }
         viewPager.adapter = viewPagerAdapter
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(

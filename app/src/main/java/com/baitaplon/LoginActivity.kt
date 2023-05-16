@@ -12,8 +12,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.values
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginBinding : ActivityLoginBinding
@@ -47,9 +45,8 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    var role : String ? = null
-                    var roleUser : Boolean = true
-                    users?.child(user?.uid.toString())?.addValueEventListener(object : ValueEventListener{
+                    var role : String ?
+                    users.child(user?.uid.toString()).addValueEventListener(object : ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
                             for(ds in snapshot.children){
                                 Log.e("DSS", ds.value.toString())
@@ -85,12 +82,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val user = auth.currentUser
-        var role : String ? = null
-        var roleUser : Boolean = true
-        users?.child(user?.uid.toString())?.addValueEventListener(object : ValueEventListener{
+        var role : String ?
+        users.child(user?.uid.toString()).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
-                    Log.e("DSS", ds.value.toString())
                     role = ds.value.toString()
                     if(role == "admin"){
                         val adminIntent = Intent(this@LoginActivity, AdminMainActivity::class.java)
@@ -104,11 +99,9 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
-
         })
     }
 }

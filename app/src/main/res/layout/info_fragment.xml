@@ -47,32 +47,6 @@
             android:textSize="25dp"
             android:textStyle="italic" />
 
-        <RatingBar
-            android:id="@+id/ItemRatingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ItemBookPrice"
-            android:layout_marginLeft="-20dp"
-            android:layout_marginTop="10dp"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:progressTint="@color/star"
-            android:rating="4"
-            android:scaleX="0.75"
-            android:stepSize="1" />
-
-        <CheckBox
-            android:id="@+id/cbFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/ItemImage"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:button="@drawable/checkbox_favorite"
-            android:enabled="true" />
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ItemImage"
             android:layout_width="150dp"

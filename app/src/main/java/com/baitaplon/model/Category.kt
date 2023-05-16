@@ -3,6 +3,10 @@ package com.baitaplon.model
 import java.io.Serializable
 
 class Category(
-    var id: Int,
+    var id: String?,
     var name: String
-) : Serializable {}
+) : Serializable {
+    override fun toString(): String {
+        return "Category(id=$id, name='$name')"
+    }
+}

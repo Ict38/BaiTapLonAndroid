@@ -3,9 +3,14 @@ package com.baitaplon.model
 import java.io.Serializable
 
 class Book(
-    private var id: Int? = null,
+    internal var id: String? = null,
     internal var name: String? = null,
-    private var author: String? = null,
-    private var price: Double? = null,
-    private var categories: MutableList<Category>? = null
-) : Serializable {}
+    internal var author: String? = null,
+    internal var price: Int? = null,
+    internal var description: String? = null,
+    internal var categories: ArrayList<Category>? = null
+) : Serializable {
+    override fun toString(): String {
+        return "Book(id=$id, name=$name, author=$author, price=$price, description=$description, categories=$categories)"
+    }
+}
