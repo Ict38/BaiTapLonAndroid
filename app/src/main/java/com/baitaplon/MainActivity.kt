@@ -103,8 +103,7 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
                         ds.child("author").value.toString(),
                         ds.child("price").value.toString().toInt(),
                         ds.child("description").value.toString(),
-                        tempCateList
-                    )
+                        tempCateList)
                     Log.e("book is", newBook.toString())
                     addnewBook(newBook)
                 }
@@ -156,7 +155,6 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
 
     override fun onItemClick(position: Int) {
         val intent = Intent(this , ItemActivity::class.java)
-        Log.d("Something","HELLO THERE")
         intent.putExtra("book", adapter.getBookByPosition(position))
         startActivity(intent)
     }
@@ -177,7 +175,9 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
                     finish()
                 }
                 R.id.nav_search -> {
-
+                    val searchIntent = Intent(this@MainActivity, SearchActivity::class.java)
+                    searchIntent.putExtra("bookList", bookList)
+                    startActivity(searchIntent)
                 }
                 R.id.nav_about -> {}
                 R.id.nav_feedback -> {}
