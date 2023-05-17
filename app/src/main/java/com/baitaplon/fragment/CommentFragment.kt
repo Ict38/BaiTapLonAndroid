@@ -1,4 +1,4 @@
-package com.baitaplon.fragment.user
+package com.baitaplon.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.baitaplon.R
 
-class ShopFragment : Fragment() {
+class CommentFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

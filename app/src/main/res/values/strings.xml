@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">dataBook</string>
 
+    //Admin
+    <string name="admin_page">Trang Admin</string>
+
+    //Add book
+    <string name="adding_book">Thêm sách</string>
+    <string name="book_name"> Tên Sách </string>
+    <string name="book_name_hint"> Nhập tên của quyển Sách </string>
+    <string name="book_author"> Tên tác giả </string>
+    <string name="book_author_hint"> Nhập tên của tác giả </string>
+    <string name="book_price"> Giá </string>
+    <string name="book_price_hint"> Nhập giá của sách </string>
+    <string name="book_des"> Mô Tả </string>
+    <string name="book_des_hint"> Nhập mô tả của sách </string>
+    <string name="add_action"> Thêm sách mới </string>
+    <string name="cancel"> Hủy</string>
+
     //Search
     <string name="search_hint">Nhập tên sách cần tìm kiếm</string>
     // Framgent Info

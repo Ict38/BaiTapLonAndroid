@@ -23,6 +23,7 @@
         android:id="@+id/app_title"
         android:layout_below="@id/logo"
         />
+
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
@@ -34,8 +35,8 @@
         android:drawableLeft="@drawable/user"
         android:ems="15"
         android:hint="USERNAME"
-        android:textSize="20dp"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/password"

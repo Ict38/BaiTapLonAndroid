@@ -1,10 +1,10 @@
-package com.baitaplon.adapter.user
+package com.baitaplon.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.baitaplon.fragment.user.InfoFragment
-import com.baitaplon.fragment.user.ShopFragment
+import com.baitaplon.fragment.InfoFragment
+import com.baitaplon.fragment.CommentFragment
 import com.baitaplon.model.Book
 
 class ViewPagerAdapter(fm: FragmentManager, behavior: Int) :
@@ -14,7 +14,7 @@ class ViewPagerAdapter(fm: FragmentManager, behavior: Int) :
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> return InfoFragment(book)
-            1 -> return ShopFragment()
+            1 -> return CommentFragment()
         }
         return InfoFragment(book)
     }

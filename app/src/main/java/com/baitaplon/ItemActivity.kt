@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.baitaplon.adapter.user.ViewPagerAdapter
+import com.baitaplon.adapter.ViewPagerAdapter
 import com.baitaplon.model.Book
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

@@ -9,7 +9,7 @@ import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.baitaplon.adapter.user.BookItemRecyclerViewAdapter
+import com.baitaplon.adapter.BookItemRecyclerViewAdapter
 import com.baitaplon.databinding.ActivitySearchBinding
 import com.baitaplon.model.Book
 import java.util.*

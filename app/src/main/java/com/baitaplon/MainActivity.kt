@@ -14,7 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.baitaplon.adapter.user.BookItemRecyclerViewAdapter
+import com.baitaplon.adapter.BookItemRecyclerViewAdapter
 import com.baitaplon.model.Book
 import com.baitaplon.model.Category
 import com.google.android.material.navigation.NavigationView
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
 
         categories.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                tempCategoryList = ArrayList<Category>()
+                tempCategoryList.clear()
                 for(ds in snapshot.children){
                     val newCate = Category(
                         ds.key,
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
 
         books.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                tempBookList = ArrayList<Book>()
+                tempBookList.clear()
 
                 for(ds in snapshot.children){
                     var tempCateList = ArrayList<Category>()

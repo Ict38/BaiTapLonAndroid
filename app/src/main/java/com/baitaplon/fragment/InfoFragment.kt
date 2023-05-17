@@ -1,4 +1,4 @@
-package com.baitaplon.fragment.user
+package com.baitaplon.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -10,9 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baitaplon.R
-import com.baitaplon.adapter.user.CategoryItemRecyclerViewAdapter
+import com.baitaplon.adapter.CategoryItemRecyclerViewAdapter
 import com.baitaplon.model.Book
-import com.baitaplon.model.Category
 
 
 class InfoFragment(private val book: Book?) : Fragment() {
@@ -66,7 +65,6 @@ class InfoFragment(private val book: Book?) : Fragment() {
 
         val itemDecoration = SpaceItemDecoration(25)
         recyclerview.addItemDecoration(itemDecoration)
-
         recyclerview.layoutManager = manager
         recyclerview.adapter = adapter
     }

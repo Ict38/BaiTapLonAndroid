@@ -1,4 +1,4 @@
-package com.baitaplon.adapter.user
+package com.baitaplon.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.baitaplon.R
-import com.baitaplon.adapter.user.CategoryItemRecyclerViewAdapter.CateViewHolder
+import com.baitaplon.adapter.CategoryItemRecyclerViewAdapter.CateViewHolder
 import com.baitaplon.model.Category
 
 class CategoryItemRecyclerViewAdapter : RecyclerView.Adapter<CateViewHolder>() {

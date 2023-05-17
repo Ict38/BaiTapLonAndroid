@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchActivity"
+    android:background="@color/white"
    >
 
     <RelativeLayout
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/header"
         android:orientation="horizontal"
-        android:background="@color/lightgray">
+        android:background="#1B4681">
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"

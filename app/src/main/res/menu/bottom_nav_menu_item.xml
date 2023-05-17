@@ -5,7 +5,7 @@
         android:title="Info"
         />
     <item android:id="@+id/shop"
-        android:icon="@drawable/baseline_shopping_cart_24"
-        android:title="Shop"
+        android:icon="@drawable/baseline_comment_24"
+        android:title="Comment"
         />
 </menu>

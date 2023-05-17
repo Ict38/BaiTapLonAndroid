@@ -1,4 +1,4 @@
-package com.baitaplon.adapter.user
+package com.baitaplon.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,6 +33,7 @@ class BookItemRecyclerViewAdapter(
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = bookList[position]
         holder.bookname.text = book.name
+        holder.bookauthor.text = book.author
     }
     override fun getItemCount(): Int {
         return bookList.size
@@ -40,9 +41,11 @@ class BookItemRecyclerViewAdapter(
 
     inner class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val bookname: TextView
+        val bookauthor : TextView
 
         init {
             bookname = itemView.findViewById(R.id.bookName)
+            bookauthor = itemView.findViewById(R.id.bookAuthor)
             itemView.setOnClickListener(this)
         }
 
