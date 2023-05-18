@@ -18,6 +18,10 @@
     <string name="add_action"> Thêm sách mới </string>
     <string name="cancel"> Hủy</string>
 
+    // Book Item
+    <string name="book_item">Chi Tiết Sách</string>
+    <string name="update_action">Cập nhật</string>
+    <string name="delete_action">Xóa</string>
 
     // Menu Fragment
     <string name="info"> Thông tin</string>

@@ -6,13 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".AddBook"
     android:background="@color/white">
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="@string/adding_book"
+        android:text="@string/book_item"
         android:textColor="@color/text"
         android:textSize="26sp"
         android:textStyle="bold" />
@@ -114,20 +118,27 @@
                     android:layout_width="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_action"
-                    android:id="@+id/addAction"
+                    android:text="@string/update_action"
+                    android:id="@+id/updateAction"
                     android:layout_weight="1"
                     />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/cancel"
-                    android:id="@+id/cancel"
+                    android:text="@string/delete_action"
+                    android:id="@+id/deleteAction"
                     android:layout_weight="1"
                     />
             </LinearLayout>
-
+            <Button
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:id="@+id/cancel"
+                android:layout_weight="1"
+                />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -36,7 +36,7 @@ class AddBook : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBookBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        adapter = CategoryCheckBoxRecyclerViewAdapter(categoryList)
+        adapter = CategoryCheckBoxRecyclerViewAdapter(categoryList, ArrayList<Category>())
         categories.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 tempCategoryList.clear()

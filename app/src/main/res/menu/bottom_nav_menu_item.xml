@@ -5,7 +5,7 @@
         android:title="@string/info"
         />
     <item android:id="@+id/shop"
-        android:icon="@drawable/baseline_comment_24"
+        android:icon="@drawable/baseline_category_24"
         android:title="@string/category"
         />
 </menu>

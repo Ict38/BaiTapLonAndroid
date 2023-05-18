@@ -10,26 +10,38 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baitaplon.R
 import com.baitaplon.model.Category
 
-class CategoryCheckBoxRecyclerViewAdapter(private var cateList : List<Category>) :
+class CategoryCheckBoxRecyclerViewAdapter(
+    private var cateList : List<Category>,
+    private var checkedList : ArrayList<Category>
+) :
     RecyclerView.Adapter<CategoryCheckBoxRecyclerViewAdapter.CateCheckBoxViewHolder>() {
 
-    private var checkedList : ArrayList<Category> = ArrayList()
+
     fun setCateList(list : List<Category>){
         cateList = list
         notifyDataSetChanged()
+    }
+    fun  setCheckedList(list : ArrayList<Category>){
+        this.checkedList = list
     }
     fun getCateList() : List<Category>{
         return checkedList
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CateCheckBoxViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cate_checkbox_recyclerview,parent,false)
+        Log.e("CHECKED" , checkedList.toString())
+        Log.e("CATE" , cateList.toString())
         return CateCheckBoxViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CateCheckBoxViewHolder, position: Int) {
         val category = cateList[position]
         holder.cateName.text = category.name
-        holder.checkbox.isChecked = false
+        var boolean  = false
+        checkedList.forEach {
+            if(it.id == category.id)  boolean = true
+        }
+        holder.checkbox.isChecked = boolean
         holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
             toggleItemChecked(category)
         }
