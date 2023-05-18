@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ĐĂNG KÝ TÀI KHOẢN"
+        android:text="@string/signup_title"
         android:textSize="34sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -34,7 +34,7 @@
         android:background="#11000000"
         android:drawableLeft="@drawable/user"
         android:ems="15"
-        android:hint="USERNAME"
+        android:hint="@string/username"
         android:inputType="text"
         android:textSize="20dp" />
 
@@ -47,7 +47,7 @@
         android:layout_marginHorizontal="15dp"
         android:ems="15"
         android:textSize="20dp"
-        android:hint="PASSWORD"
+        android:hint="@string/password"
         android:drawableLeft="@drawable/baseline_key_24"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
@@ -69,13 +69,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:id="@+id/register"
-            android:text="Đăng Ký"/>
+            android:background="@drawable/custom_button"
+            android:layout_marginRight="10dp"
+            android:text="@string/signup"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:id="@+id/cancel"
-            android:text="Hủy"/>
+            android:background="@drawable/custom_button"
+            android:text="@string/cancel"/>
     </LinearLayout>
 </RelativeLayout>

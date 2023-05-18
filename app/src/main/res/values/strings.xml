@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">dataBook</string>
 
+    // NAVIGATION
+    <string name="signout"> Đăng Xuất</string>
+
     //Admin
     <string name="admin_page">Trang Admin</string>
 
@@ -33,5 +36,17 @@
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close navigation Drawer</string>
     <string name="signup_success_notify">Đăng ký thành công</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="laguage">Ngôn Ngữ</string>
+    <string name="signin">Đăng Nhập</string>
+    <string name="username">Tên Đăng Nhập</string>
+    <string name="password">Mật Khẩu</string>
+    <string name="signup">Đăng Ký</string>
+    <string name="forgot_password">Quên Mật Khẩu</string>
+    <string name="forgot_password_hint">Nhập Email của bạn vào đây</string>
+    <string name="reset_email">Gửi Yêu Cầu</string>
+    <string name="signup_title">Đăng Ký Tài Khoản</string>
+    <string name="book_info">Thông Tin Sách</string>
+    <string name="book_category">Thể Loại</string>
 
 </resources>

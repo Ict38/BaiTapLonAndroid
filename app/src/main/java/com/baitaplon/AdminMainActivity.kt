@@ -1,9 +1,12 @@
 package com.baitaplon
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +15,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
     private lateinit var image : ImageView
@@ -195,12 +201,19 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
             }
             R.id.nav_search -> {
                 val searchIntent = Intent(this@AdminMainActivity, SearchActivity::class.java)
-                searchIntent.putExtra("bookList", bookList)
+                val searchBookList = bookList
+                searchBookList.forEach {
+                    it.bitmap = null
+                }
+                searchIntent.putExtra("bookList", searchBookList)
                 startActivity(searchIntent)
             }
             R.id.nav_about -> {
                 val searchIntent = Intent(this@AdminMainActivity, UndoneActivity::class.java)
                 startActivity(searchIntent)
+            }
+            R.id.nav_langue ->{
+                showChangeLang()
             }
             R.id.nav_feedback -> {
                 val searchIntent = Intent(this@AdminMainActivity, UndoneActivity::class.java)
@@ -209,6 +222,43 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
+    }
+    private fun showChangeLang() {
+        val listItems = arrayOf("Tiếng Việt", "English")
+
+        val checkedItem = if (getCurrentLocale() == "vn") 0 else 1
+
+        val dialogBuilder = AlertDialog.Builder(this@AdminMainActivity)
+        dialogBuilder.setTitle("Choose Language")
+        dialogBuilder.setSingleChoiceItems(listItems, checkedItem) { dialog, which ->
+            val selectedLang = if (which == 0) "vn" else "en"
+            setLocale(this, selectedLang )
+            recreate()
+            dialog.dismiss()
+        }
+
+        val dialog = dialogBuilder.create()
+        dialog.show()
+    }
+
+    private fun getCurrentLocale(): String {
+        return Locale.getDefault().language
+    }
+
+    fun setLocale(context: Context, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val resources = context.resources
+        val configuration = Configuration(resources.configuration)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            configuration.setLocale(locale)
+        } else {
+            configuration.locale = locale
+        }
+
+        resources.updateConfiguration(configuration, resources.displayMetrics)
     }
     override fun onItemClick(position: Int) {
         val intent = Intent(this , AdminItemActivity::class.java)

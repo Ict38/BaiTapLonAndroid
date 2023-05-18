@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="dataBook"
+        android:text="@string/app_name"
         android:textSize="36sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -34,7 +34,7 @@
         android:background="#11000000"
         android:drawableLeft="@drawable/user"
         android:ems="15"
-        android:hint="USERNAME"
+        android:hint="@string/username"
         android:inputType="text"
         android:textSize="20dp" />
 
@@ -47,7 +47,7 @@
         android:layout_marginHorizontal="15dp"
         android:ems="15"
         android:textSize="20dp"
-        android:hint="PASSWORD"
+        android:hint="@string/password"
         android:drawableLeft="@drawable/baseline_key_24"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
@@ -70,14 +70,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:id="@+id/loginButton"
-            android:text="Đăng Nhập"/>
+            android:background="@drawable/custom_button"
+            android:layout_marginRight="10dp"
+            android:text="@string/signin"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:id="@+id/registerButton"
-            android:text="Đăng Ký"/>
+            android:background="@drawable/custom_button"
+            android:text="@string/signup"/>
     </LinearLayout>
     <Button
         android:layout_width="wrap_content"
@@ -85,7 +88,8 @@
         android:layout_below="@id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Quên mật khẩu"
+        android:background="@drawable/custom_button"
+        android:text="@string/forgot_password"
         android:id="@+id/forgotpassword"
         />
 </RelativeLayout>

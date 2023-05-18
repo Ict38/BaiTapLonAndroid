@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">dataBook</string>
+
+    //Admin
+    <string name="admin_page">Admin Page</string>
+
+    //Add book
+    <string name="adding_book">Add Book</string>
+    <string name="book_name">Book Name</string>
+    <string name="book_name_hint">Enter the name of the book</string>
+    <string name="book_author">Author Name</string>
+    <string name="book_author_hint">Enter the name of the author</string>
+    <string name="book_price">Price</string>
+    <string name="book_price_hint">Enter the price of the book</string>
+    <string name="book_des">Description</string>
+    <string name="book_des_hint">Enter the description of the book</string>
+    <string name="add_image">Add Image</string>
+    <string name="add_action">Add New Book</string>
+    <string name="cancel">Cancel</string>
+
+    // Book Item
+    <string name="book_item">Book Details</string>
+    <string name="update_action">Update</string>
+    <string name="delete_action">Delete</string>
+
+    // Menu Fragment
+    <string name="info">Info</string>
+    <string name="category">Related Categories</string>
+
+    //Search
+    <string name="search_hint">Enter the book name to search</string>
+
+    // Framgent Info
+    <string name="bookDes">Dune is a science fiction novel by Frank Herbert, telling the journey of the Atreides family on the planet Arrakis, where a valuable resource called Spice, a substance that generates energy, exists. It depicts the wars between different races and powerful families to control it.</string>
+
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="signup_success_notify">Sign up successful</string>
+    <string name="signout">Sign Out</string>
+    <string name="search">Search</string>
+    <string name="laguage">Language</string>
+    <string name="signin">Sign In</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="signup">Sign Up</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_password_hint">Enter your email</string>
+    <string name="reset_email">Reset Email</string>
+    <string name="signup_title">Sign Up New Account</string>
+    <string name="book_info">Book Info</string>
+    <string name="book_category">Category</string>
+</resources>

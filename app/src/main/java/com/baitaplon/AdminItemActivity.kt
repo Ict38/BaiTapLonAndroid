@@ -50,7 +50,6 @@ class AdminItemActivity : AppCompatActivity() {
         val imageRef = storageRef.child(book?.id + ".jpg")
         imageRef.getBytes(ONE_MEGABYTE)
             .addOnSuccessListener { bytes ->
-                // Chuyển đổi bytes thành bitmap
                 val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                 binding.img.setImageBitmap(bitmap)
             }
@@ -98,6 +97,7 @@ class AdminItemActivity : AppCompatActivity() {
             val database = FirebaseDatabase.getInstance()
             val bookRef = database.getReference("books").child(book.id.toString())
             bookRef.removeValue()
+            finish()
         }
     }
 
@@ -110,10 +110,11 @@ class AdminItemActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.e("DATA" , data.toString())
         if (requestCode == galleryPick && resultCode == RESULT_OK && data != null) {
+            Log.e("DATA" , data.data.toString())
             imageUri = data.data!!
             binding.img.setImageURI(imageUri)
-            finish()
         }
     }
 }

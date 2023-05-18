@@ -76,7 +76,7 @@
                 android:layout_below="@id/ItemTitle"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:text="Thông tin cuốn sách"
+                android:text="@string/book_info"
                 android:textColor="@color/text"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -111,7 +111,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textColor="@color/text"
-                            android:text="Tên sách"
+                            android:text="@string/book_name"
                             android:textSize="13dp" />
 
                         <RelativeLayout
@@ -143,7 +143,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Tác giả"
+                            android:text="@string/book_author"
                             android:textColor="@color/text"
                             android:textSize="13dp" />
 
@@ -173,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/authorAndName"
                     android:gravity="center"
-                    android:text="Mô tả"
+                    android:text="@string/book_des"
                     android:textColor="@color/text"
                     android:textSize="13dp" />
 
@@ -206,7 +206,7 @@
                 android:layout_below="@id/infolayout"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:text="Thể loại"
+                android:text="@string/book_category"
                 android:textColor="@color/text"
                 android:textSize="20dp"
                 android:textStyle="bold" />

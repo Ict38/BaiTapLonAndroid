@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBook"
-    android:background="@color/white">
+    tools:context=".AddBook">
 
     <TextView
         android:id="@+id/title"
@@ -21,6 +20,7 @@
         android:textSize="26sp"
         android:textStyle="bold" />
     <ScrollView
+        android:layout_marginHorizontal="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title">
@@ -119,14 +119,17 @@
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:text="@string/update_action"
+                    android:background="@drawable/custom_button"
                     android:id="@+id/updateAction"
                     android:layout_weight="1"
+                    android:layout_marginRight="10dp"
                     />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:text="@string/delete_action"
+                    android:background="@drawable/custom_button"
                     android:id="@+id/deleteAction"
                     android:layout_weight="1"
                     />
@@ -135,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/custom_button"
                 android:text="@string/cancel"
                 android:id="@+id/cancel"
                 android:layout_weight="1"
