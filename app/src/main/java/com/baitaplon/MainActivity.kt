@@ -1,6 +1,8 @@
 package com.baitaplon
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baitaplon.adapter.BookItemRecyclerViewAdapter
 import com.baitaplon.model.Book
 import com.baitaplon.model.Category
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +27,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 
 class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClickListener, OnNavigationItemSelectedListener {
 
@@ -33,11 +38,14 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
     private lateinit var navView : NavigationView
     private lateinit var recyclerview : RecyclerView
     private lateinit var adapter : BookItemRecyclerViewAdapter
+    private lateinit var fab : FloatingActionButton
     private var bookList = ArrayList<Book>()
     private var tempBookList = ArrayList<Book>()
     private var categoryList = ArrayList<Category>()
     private var tempCategoryList = ArrayList<Category>()
     private val auth = FirebaseAuth.getInstance()
+    private val storageRef = FirebaseStorage.getInstance().reference
+    private val ONE_MEGABYTE: Long = 1024 * 1024
     private val books = FirebaseDatabase.getInstance().getReference("books")
     private val categories = FirebaseDatabase.getInstance().getReference("categories")
 
@@ -48,7 +56,6 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
 
         image = findViewById(R.id.menuIcon)
         drawer = findViewById(R.id.drawer)
-
         image.setOnClickListener{
             drawer.openDrawer(GravityCompat.START)
         }
@@ -65,7 +72,7 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
 
         recyclerview = findViewById(R.id.main_layout_recyclerview)
 
-        categories.addValueEventListener(object : ValueEventListener{
+        categories.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 tempCategoryList.clear()
                 for(ds in snapshot.children){
@@ -73,7 +80,6 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
                         ds.key,
                         ds.value.toString()
                     )
-                    Log.e("new Cate", newCate.toString())
                     addNewCategory(newCate)
                 }
                 syncWithCategoriesList()
@@ -83,7 +89,7 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
             }
         })
 
-        books.addValueEventListener(object : ValueEventListener{
+        books.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 tempBookList.clear()
 
@@ -101,10 +107,9 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
                         ds.key,
                         ds.child("name").value.toString(),
                         ds.child("author").value.toString(),
-                        ds.child("price").value.toString().toInt(),
+                        ds.child("price").value.toString().toIntOrNull(),
                         ds.child("description").value.toString(),
                         tempCateList)
-                    Log.e("book is", newBook.toString())
                     addnewBook(newBook)
                 }
                 syncWithBookAdapter()
@@ -114,15 +119,15 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
                 TODO("Not yet implemented")
             }
         })
-
         adapter = BookItemRecyclerViewAdapter(bookList,this@MainActivity)
         val manager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
-        val itemDecoration = SpaceItemDecoration(25)
+        val itemDecoration = MainActivity.SpaceItemDecoration(25)
         recyclerview.addItemDecoration(itemDecoration)
         recyclerview.layoutManager = manager
         recyclerview.adapter = adapter
-    }
 
+
+    }
     private fun syncWithCategoriesList() {
         categoryList = tempCategoryList
     }
@@ -133,14 +138,31 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
     }
 
     private fun addnewBook(newBook: Book) {
+        Log.e("imagePath", newBook.id.toString() + ".jpg")
+        val imageRef  = storageRef.child(newBook.id + ".jpg")
+        imageRef.getBytes(ONE_MEGABYTE)
+            .addOnSuccessListener { bytes ->
+                // Chuyển đổi bytes thành bitmap
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+                val byteArray = byteArrayOutputStream.toByteArray()
+                newBook.setBitmap(byteArray)
+                onBookLoaded()
+            }
+            .addOnFailureListener { exception ->
+                Log.e("UndoneActivity", "Lỗi khi tải xuống ảnh: ${newBook.name.toString()}")
+            }
         tempBookList.add(newBook)
+    }
+    private fun onBookLoaded() {
+        syncWithBookAdapter()
     }
 
     private fun syncWithBookAdapter() {
         bookList = tempBookList
         adapter.setBookList(bookList)
     }
-
     class SpaceItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             // Đặt khoảng cách giữa các item bằng spaceHeight
@@ -152,43 +174,44 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
             }
         }
     }
-
-    override fun onItemClick(position: Int) {
-        val intent = Intent(this , ItemActivity::class.java)
-        intent.putExtra("book", adapter.getBookByPosition(position))
-        startActivity(intent)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (toggle.onOptionsItemSelected(item)) {
             true
         } else super.onOptionsItemSelected(item)
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                R.id.nav_logout -> {
-                    auth.signOut()
-                    Toast.makeText(applicationContext, "SIGN OUT", Toast.LENGTH_SHORT).show()
-                    val mainToLoginIntent = Intent(this@MainActivity, LoginActivity::class.java)
-                    startActivity(mainToLoginIntent)
-                    finish()
-                }
-                R.id.nav_search -> {
-                    val searchIntent = Intent(this@MainActivity, SearchActivity::class.java)
-                    searchIntent.putExtra("bookList", bookList)
-                    startActivity(searchIntent)
-                }
-                R.id.nav_about -> {
-                    val searchIntent = Intent(this@MainActivity, UndoneActivity::class.java)
-                    startActivity(searchIntent)
-                }
-                R.id.nav_feedback -> {
-                    val searchIntent = Intent(this@MainActivity, UndoneActivity::class.java)
-                    startActivity(searchIntent)
-                }
+        when (item.itemId) {
+            R.id.nav_logout -> {
+                auth.signOut()
+                Toast.makeText(applicationContext, "SIGN OUT", Toast.LENGTH_SHORT).show()
+                val mainToLoginIntent = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(mainToLoginIntent)
+                finish()
             }
-            drawer.closeDrawer(GravityCompat.START)
-            return true
+            R.id.nav_search -> {
+                val searchIntent = Intent(this@MainActivity, SearchActivity::class.java)
+                searchIntent.putExtra("bookList", bookList)
+                startActivity(searchIntent)
+            }
+            R.id.nav_about -> {
+                val searchIntent = Intent(this@MainActivity, UndoneActivity::class.java)
+                startActivity(searchIntent)
+            }
+            R.id.nav_feedback -> {
+                val searchIntent = Intent(this@MainActivity, UndoneActivity::class.java)
+                startActivity(searchIntent)
+            }
+        }
+        drawer.closeDrawer(GravityCompat.START)
+        return true
+    }
+    override fun onItemClick(position: Int) {
+        val intent = Intent(this , ItemActivity::class.java)
+        val book = adapter.getBookByPosition(position)
+        book.bitmap = null
+        intent.putExtra("book",book)
+        startActivity(intent)
     }
 }

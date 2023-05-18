@@ -1,10 +1,14 @@
 package com.baitaplon.fragment
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,12 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.baitaplon.R
 import com.baitaplon.adapter.CategoryItemRecyclerViewAdapter
 import com.baitaplon.model.Book
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 
 
 class InfoFragment(private val book: Book?) : Fragment() {
 
     private lateinit var recyclerview : RecyclerView
     private lateinit var adapter : CategoryItemRecyclerViewAdapter
+    private val storageRef = FirebaseStorage.getInstance().reference
+    private val ONE_MEGABYTE: Long = 1024 * 1024
 
     private lateinit var titleBookName : TextView
     private lateinit var titleBookAuthor : TextView
@@ -25,7 +33,7 @@ class InfoFragment(private val book: Book?) : Fragment() {
     private lateinit var bookName : TextView
     private lateinit var bookAuthor : TextView
     private lateinit var bookDes : TextView
-
+    private lateinit var bookImage : ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +52,7 @@ class InfoFragment(private val book: Book?) : Fragment() {
         bookName = view.findViewById(R.id.bookName)
         bookAuthor = view.findViewById(R.id.bookAuthor)
         bookDes = view.findViewById(R.id.bookDes)
+        bookImage = view.findViewById(R.id.ItemImage)
 
         titleBookName.text = book?.name
         titleBookAuthor.text = book?.author
@@ -51,6 +60,18 @@ class InfoFragment(private val book: Book?) : Fragment() {
         bookName.text = book?.name
         bookAuthor.text = book?.author
         bookDes.text = book?.description
+
+        val imageRef  = storageRef.child(book?.id + ".jpg")
+        imageRef.getBytes(ONE_MEGABYTE)
+            .addOnSuccessListener { bytes ->
+                // Chuyển đổi bytes thành bitmap
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                bookImage.setImageBitmap(bitmap)
+
+            }
+            .addOnFailureListener { exception ->
+                Log.e("UndoneActivity", "Lỗi khi tải xuống ảnh: ${book?.name.toString()}")
+            }
 
         recyclerview = view.findViewById(R.id.cateRecyclerView)
         adapter = CategoryItemRecyclerViewAdapter()

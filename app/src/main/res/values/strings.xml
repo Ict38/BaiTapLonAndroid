@@ -18,6 +18,10 @@
     <string name="add_action"> Thêm sách mới </string>
     <string name="cancel"> Hủy</string>
 
+
+    // Menu Fragment
+    <string name="info"> Thông tin</string>
+    <string name="category"> Cùng thể loại</string>
     //Search
     <string name="search_hint">Nhập tên sách cần tìm kiếm</string>
     // Framgent Info

@@ -212,8 +212,9 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
     }
     override fun onItemClick(position: Int) {
         val intent = Intent(this , ItemActivity::class.java)
-        intent.putExtra("book", adapter.getBookByPosition(position))
-        Log.e("book is", adapter.getBookByPosition(position).toString())
+        val book = adapter.getBookByPosition(position)
+        book.bitmap = null
+        intent.putExtra("book",book)
         startActivity(intent)
     }
 }
