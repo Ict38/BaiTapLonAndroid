@@ -47,7 +47,7 @@ class InfoFragment(private val book: Book?) : Fragment() {
 
         titleBookName.text = book?.name
         titleBookAuthor.text = book?.author
-        bookPrice.text = book?.price.toString()
+        bookPrice.text = book?.price.toString() + "đ"
         bookName.text = book?.name
         bookAuthor.text = book?.author
         bookDes.text = book?.description

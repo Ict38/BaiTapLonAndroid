@@ -1,9 +1,11 @@
 package com.baitaplon.adapter
 
+import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.baitaplon.R
@@ -34,6 +36,10 @@ class BookItemRecyclerViewAdapter(
         val book = bookList[position]
         holder.bookname.text = book.name
         holder.bookauthor.text = book.author
+        if(book.bitmap != null) {
+            val bitmap = BitmapFactory.decodeByteArray(book.bitmap, 0, book.bitmap!!.size)
+            holder.img.setImageBitmap(bitmap)
+        }
     }
     override fun getItemCount(): Int {
         return bookList.size
@@ -42,10 +48,12 @@ class BookItemRecyclerViewAdapter(
     inner class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val bookname: TextView
         val bookauthor : TextView
+        val img : ImageView
 
         init {
             bookname = itemView.findViewById(R.id.bookName)
             bookauthor = itemView.findViewById(R.id.bookAuthor)
+            img = itemView.findViewById(R.id.bookImage)
             itemView.setOnClickListener(this)
         }
 

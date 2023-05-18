@@ -179,8 +179,14 @@ class MainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClic
                     searchIntent.putExtra("bookList", bookList)
                     startActivity(searchIntent)
                 }
-                R.id.nav_about -> {}
-                R.id.nav_feedback -> {}
+                R.id.nav_about -> {
+                    val searchIntent = Intent(this@MainActivity, UndoneActivity::class.java)
+                    startActivity(searchIntent)
+                }
+                R.id.nav_feedback -> {
+                    val searchIntent = Intent(this@MainActivity, UndoneActivity::class.java)
+                    startActivity(searchIntent)
+                }
             }
             drawer.closeDrawer(GravityCompat.START)
             return true

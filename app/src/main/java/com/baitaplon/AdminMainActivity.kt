@@ -1,6 +1,8 @@
 package com.baitaplon
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +26,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 
 class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
     private lateinit var image : ImageView
@@ -33,12 +37,13 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
     private lateinit var recyclerview : RecyclerView
     private lateinit var adapter : BookItemRecyclerViewAdapter
     private lateinit var fab : FloatingActionButton
-
     private var bookList = ArrayList<Book>()
     private var tempBookList = ArrayList<Book>()
     private var categoryList = ArrayList<Category>()
     private var tempCategoryList = ArrayList<Category>()
     private val auth = FirebaseAuth.getInstance()
+    private val storageRef = FirebaseStorage.getInstance().reference
+    private val ONE_MEGABYTE: Long = 1024 * 1024
     private val books = FirebaseDatabase.getInstance().getReference("books")
     private val categories = FirebaseDatabase.getInstance().getReference("categories")
 
@@ -78,7 +83,6 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
                         ds.key,
                         ds.value.toString()
                     )
-                    Log.e("new Cate", newCate.toString())
                     addNewCategory(newCate)
                 }
                 syncWithCategoriesList()
@@ -94,8 +98,6 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
 
                 for(ds in snapshot.children){
                     var tempCateList = ArrayList<Category>()
-                    Log.e("cate size in here", categoryList.size.toString())
-
                     for(cate in ds.child("categories").children){
 //                        Log.e("cate", cate.toString())
                         for(i in categoryList){
@@ -108,10 +110,9 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
                         ds.key,
                         ds.child("name").value.toString(),
                         ds.child("author").value.toString(),
-                        ds.child("price").value.toString().toInt(),
+                        ds.child("price").value.toString().toIntOrNull(),
                         ds.child("description").value.toString(),
                         tempCateList)
-                    Log.e("book is", newBook.toString())
                     addnewBook(newBook)
                 }
                 syncWithBookAdapter()
@@ -121,7 +122,6 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
                 TODO("Not yet implemented")
             }
         })
-        Log.e("cate size in admin", categoryList.size.toString())
         adapter = BookItemRecyclerViewAdapter(bookList,this@AdminMainActivity)
         val manager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
         val itemDecoration = MainActivity.SpaceItemDecoration(25)
@@ -141,7 +141,25 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
     }
 
     private fun addnewBook(newBook: Book) {
+        Log.e("imagePath", newBook.id.toString() + ".jpg")
+        val imageRef  = storageRef.child(newBook.id + ".jpg")
+        imageRef.getBytes(ONE_MEGABYTE)
+            .addOnSuccessListener { bytes ->
+                // Chuyển đổi bytes thành bitmap
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+                val byteArray = byteArrayOutputStream.toByteArray()
+                newBook.setBitmap(byteArray)
+                onBookLoaded()
+            }
+            .addOnFailureListener { exception ->
+                Log.e("UndoneActivity", "Lỗi khi tải xuống ảnh: ${newBook.name.toString()}")
+            }
         tempBookList.add(newBook)
+    }
+    private fun onBookLoaded() {
+        syncWithBookAdapter()
     }
 
     private fun syncWithBookAdapter() {
@@ -165,6 +183,7 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
         } else super.onOptionsItemSelected(item)
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_logout -> {
@@ -179,8 +198,14 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
                 searchIntent.putExtra("bookList", bookList)
                 startActivity(searchIntent)
             }
-            R.id.nav_about -> {}
-            R.id.nav_feedback -> {}
+            R.id.nav_about -> {
+                val searchIntent = Intent(this@AdminMainActivity, UndoneActivity::class.java)
+                startActivity(searchIntent)
+            }
+            R.id.nav_feedback -> {
+                val searchIntent = Intent(this@AdminMainActivity, UndoneActivity::class.java)
+                startActivity(searchIntent)
+            }
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
@@ -188,6 +213,7 @@ class AdminMainActivity : AppCompatActivity(), BookItemRecyclerViewAdapter.OnIte
     override fun onItemClick(position: Int) {
         val intent = Intent(this , ItemActivity::class.java)
         intent.putExtra("book", adapter.getBookByPosition(position))
+        Log.e("book is", adapter.getBookByPosition(position).toString())
         startActivity(intent)
     }
 }

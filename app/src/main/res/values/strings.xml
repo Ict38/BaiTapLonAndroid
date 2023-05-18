@@ -14,6 +14,7 @@
     <string name="book_price_hint"> Nhập giá của sách </string>
     <string name="book_des"> Mô Tả </string>
     <string name="book_des_hint"> Nhập mô tả của sách </string>
+    <string name="add_image">Thêm Ảnh</string>
     <string name="add_action"> Thêm sách mới </string>
     <string name="cancel"> Hủy</string>
 
