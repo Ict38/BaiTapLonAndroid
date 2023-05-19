@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.baitaplon.adapter.CategoryCheckBoxRecyclerViewAdapter
@@ -66,34 +67,51 @@ class AdminItemActivity : AppCompatActivity() {
         }
 
         binding.updateAction.setOnClickListener {
-            val bookRef =
-                FirebaseDatabase.getInstance().getReference("books").child(book.id.toString())
-            bookRef.child("name").setValue(binding.bookName.text.toString())
-            bookRef.child("author").setValue(binding.bookAuthor.text.toString())
-            bookRef.child("price").setValue(binding.bookPrice.text.toString().toInt())
-            bookRef.child("description").setValue(binding.bookDes.text.toString())
+            if (binding.bookName.text.toString().trim().isEmpty() ||
+                binding.bookAuthor.text.toString().trim().isEmpty() ||
+                binding.bookPrice.text.toString().trim().isEmpty() ||
+                binding.bookDes.text.toString().trim().isEmpty()
+            ) {
+                Toast.makeText(
+                    applicationContext,
+                    "Vui lòng điền đủ thông tin sách",
+                    Toast.LENGTH_SHORT
+                )
+            } else if (adapter.getCateList().isEmpty()) {
+                Toast.makeText(applicationContext, "Chọn ít nhất một thể loại", Toast.LENGTH_SHORT)
+            } else {
+                val bookRef =
+                    FirebaseDatabase.getInstance().getReference("books").child(book.id.toString())
+                bookRef.child("name").setValue(binding.bookName.text.toString())
+                bookRef.child("author").setValue(binding.bookAuthor.text.toString())
+                bookRef.child("price").setValue(binding.bookPrice.text.toString().toInt())
+                bookRef.child("description").setValue(binding.bookDes.text.toString())
 
-            val updates: HashMap<String, Any> = HashMap()
+                val updates: HashMap<String, Any> = HashMap()
 
-            adapter.getCateList().forEach { category ->
-                val categoryKey = bookRef.child("categories").push().key
-                updates[categoryKey.toString()] = category.id.toString()
-            }
-            Log.e("updates", updates.toString())
-            bookRef.child("categories").updateChildren(updates)
-            val imgPath = bookRef.key
-            Log.e("imgPath", imgPath.toString())
-            if (imgPath.toString() != null) {
-                storageRef.child(imgPath.toString()+".jpg").putFile(imageUri).addOnSuccessListener {
-                    Log.e("Them anh thanh cong", "SUCCESS")
-                }.addOnFailureListener{
-                    Log.e("Them anh that bai", "FAILURE")
+                bookRef.child("categories").removeValue()
+
+                adapter.getCateList().forEach { category ->
+                    val categoryKey = bookRef.child("categories").push().key
+                    updates[categoryKey.toString()] = category.id.toString()
                 }
+                Log.e("updates", updates.toString())
+                bookRef.child("categories").updateChildren(updates)
+                val imgPath = bookRef.key
+                Log.e("imgPath", imgPath.toString())
+                if (imgPath.toString() != null) {
+                    storageRef.child(imgPath.toString() + ".jpg").putFile(imageUri)
+                        .addOnSuccessListener {
+                            Log.e("Them anh thanh cong", "SUCCESS")
+                        }.addOnFailureListener {
+                        Log.e("Them anh that bai", "FAILURE")
+                    }
+                }
+                finish()
             }
-            finish()
         }
 
-        binding.deleteAction.setOnClickListener{
+        binding.deleteAction.setOnClickListener {
             val database = FirebaseDatabase.getInstance()
             val bookRef = database.getReference("books").child(book.id.toString())
             bookRef.removeValue()
@@ -110,9 +128,9 @@ class AdminItemActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.e("DATA" , data.toString())
+        Log.e("DATA", data.toString())
         if (requestCode == galleryPick && resultCode == RESULT_OK && data != null) {
-            Log.e("DATA" , data.data.toString())
+            Log.e("DATA", data.data.toString())
             imageUri = data.data!!
             binding.img.setImageURI(imageUri)
         }
